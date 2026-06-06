@@ -223,7 +223,7 @@ do
     vim.cmd.vnew()
     vim.cmd.term()
     vim.cmd.wincmd("J")
-    vim.api.nvim_win_set_height(0,5)
+    vim.api.nvim_win_set_height(0,10)
   end)
   -- Keybinds to make split navigation easier.
   --  Use CTRL+<hjkl> to switch between windows
@@ -399,6 +399,18 @@ do
 
   vim.pack.add { gh 'nyoom-engineering/oxocarbon.nvim' }
 
+  vim.pack.add { gh 'rebelot/kanagawa.nvim' }
+
+  require("kanagawa").setup()
+
+  vim.pack.add({
+    {
+      src = "https://github.com/rose-pine/neovim",
+      name = "rose-pine",
+    },
+  })
+  require("rose-pine").setup()
+
   vim.pack.add({
     "https://github.com/ellisonleao/gruvbox.nvim"
   })
@@ -419,7 +431,7 @@ do
   -- Load the colorscheme here.
   -- Like many other themes, this one has different styles, and you could load
   -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  vim.cmd.colorscheme "oxocarbon"
+  vim.cmd.colorscheme "rose-pine"
   -- Highlight todo, notes, etc in comments
   vim.pack.add { gh 'folke/todo-comments.nvim' }
   require('todo-comments').setup { signs = false }
@@ -710,7 +722,7 @@ do
   --  See `:help lsp-config` for information about keys and how to configure
   ---@type table<string, vim.lsp.Config>
   local servers = {
-    -- clangd = {},
+    clangd = {},
     -- gopls = {},
     -- pyright = {},
     -- rust_analyzer = {},
@@ -871,6 +883,9 @@ do
       --
       -- See `:help blink-cmp-config-keymap` for defining your own keymap
       preset = 'default',
+
+      ['<CR>'] = { 'accept', 'fallback' },
+      ['<Enter>'] = { 'accept', 'fallback' },
 
       -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
       --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
